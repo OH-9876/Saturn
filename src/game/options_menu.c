@@ -348,7 +348,11 @@ static void optmenu_draw_box(s16 x1, s16 y1, s16 x2, s16 y2, u8 r, u8 g, u8 b) {
 }
 
 static void optmenu_draw_text(s16 x, s16 y, const u8 *str, u8 col) {
-    const u8 textX = get_str_x_pos_from_center(x, (u8*)str, 10.0f);
+#if defined(VERSION_SH) || defined(VERSION_JP)
+    const s16 textX = get_str_x_pos_from_center_scale(x, (u8*)str, 10.0f);
+#else
+    const s16 textX = get_str_x_pos_from_center(x, (u8*)str, 10.0f);
+#endif
     gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
     print_generic_string(textX+1, y-1, str);
     if (col == 0) {
